@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { HighligtCard } from '../../components/HighligtCard';
-import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon} from './styles';
+import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards} from './styles';
 
 
 export function Dashboard() {
@@ -24,7 +24,13 @@ export function Dashboard() {
         </UserWrapper>
         
       </Header>
+      <HighligtCards >
+        
     <HighligtCard/>
+    <HighligtCard/>
+    <HighligtCard/>
+
+    </HighligtCards>
     </Container>
   );
 }
