@@ -1,15 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
-
-import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper } from './styles';
+import { HighligtCard } from '../../components/HighligtCard';
+import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon} from './styles';
 
 
 export function Dashboard() {
   return (
     <Container>
       <Header>
-        <UserWrapper>
-          
+        <UserWrapper>  
         <UserInfo>
           <UserImage source={{uri:'https://github.com/godrix.png'}}/>
           <User>
@@ -21,9 +20,11 @@ export function Dashboard() {
             </UserName>
           </User>
         </UserInfo>
-
+        <Icon name="power"/>
         </UserWrapper>
+        
       </Header>
+    <HighligtCard/>
     </Container>
   );
 }
