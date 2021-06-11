@@ -26,9 +26,9 @@ export function Dashboard() {
       </Header>
       <HighligtCards >
         
-    <HighligtCard/>
-    <HighligtCard/>
-    <HighligtCard/>
+    <HighligtCard title="Entradas" amount="R$ 17,00" lastTransaction="Ontem ao meio dia" type="up"/>
+    <HighligtCard title="Saidas" amount="R$ 23,00" lastTransaction="Ontem ao meio dia" type="down"/>
+    <HighligtCard title="Total" amount="R$ 50,00" lastTransaction="Ontem ao meio dia" type="total"/>
 
     </HighligtCards>
     </Container>

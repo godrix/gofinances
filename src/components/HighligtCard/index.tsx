@@ -11,22 +11,34 @@ import {
   LastTransaction
 } from './styles';
 
+interface IHighligtyCard{
+  title:string;
+  amount:string;
+  lastTransaction:string;
+  type:'up'|'down'|'total'
+}
 
-export function HighligtCard() {
+const icon = {
+  up:'arrow-up-circle',
+  down:'arrow-down-circle',
+  total:'dollar-sign',
+}
+
+export function HighligtCard({title, amount, lastTransaction, type}:IHighligtyCard) {
   return (
-    <Container>
+    <Container type={type}>
       <Header>
-        <Title>
-          Entrada
+        <Title type={type}>
+          {title}
         </Title>
-        <Icon name="arrow-up-circle"/>
+        <Icon name={icon[type]} type={type}/>
       </Header>
       <Footer>
-        <Amount>
-          16,00
+        <Amount type={type}>
+          {amount}
         </Amount>
-        <LastTransaction>
-          ontem
+        <LastTransaction type={type}>
+          {lastTransaction}
         </LastTransaction>
       </Footer>
     </Container>
