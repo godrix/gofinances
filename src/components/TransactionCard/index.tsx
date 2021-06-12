@@ -7,15 +7,17 @@ interface ICategory{
   name:string;
   icon:string
 }
-interface ITransactionCardProps{
-  data:{
+export interface ITransactionCardData{
   type:'income'|'outcome',
   title:string;
   amount:string;
   category:ICategory;
   date:string;
-  }
   
+}
+
+interface ITransactionCardProps{
+  data:ITransactionCardData;
 }
 
 export function TransactionCard({data}:ITransactionCardProps) {

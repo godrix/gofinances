@@ -1,22 +1,29 @@
 import React from 'react';
 import { View } from 'react-native';
 import { HighligtCard } from '../../components/HighligtCard';
-import { TransactionCard } from '../../components/TransactionCard';
+import { TransactionCard, ITransactionCardData } from '../../components/TransactionCard';
 import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList} from './styles';
+
+export interface IDataListProps extends ITransactionCardData{
+  id:string
+}
 
 
 export function Dashboard() {
-  const data = [{
+  const data : IDataListProps[] = [{
+    id:'1',
     type:'income',
     title:"Blados",
      amount:"R$ 6,000.00", 
      date:"Ontem", category:{name:'compras', icon:'coffee'}
   },{
+    id:'2',
     type:'income',
     title:"Coca-coca",
      amount:"R$ 2,000.00", 
      date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
   },{
+    id:'3',
     type:'outcome',
     title:"Fruvis",
      amount:"R$ 1,000.00", 
@@ -54,8 +61,7 @@ export function Dashboard() {
         </Title>
         <TransactionList
         data={data}
-        
-        keyExtractor={item => item.title}
+        keyExtractor={item => item.id}
         renderItem={({item})=><TransactionCard data={item}/>}
         
         />
