@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/common/Button';
 import { Input } from '../../components/common/Input';
+import { Select } from '../../components/common/Select';
 import { TransactionTypeButton } from '../../components/TransactionTypeButton';
 
 import { Container, Header, Title, Form , Fields, TransactionType} from './styles';
@@ -45,7 +46,7 @@ export function Register() {
       onPress={()=>handleTransactionTypeSelect('outcome')}
       />
       </TransactionType>
-     
+      <Select title="Categorias"/>
         </Fields>
       <Button value="Cadastrar"/>
       </Form>
