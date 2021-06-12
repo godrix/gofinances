@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View } from 'react-native';
 import { Button } from '../../components/common/Button';
 import { Input } from '../../components/common/Input';
+import { TransactionTypeButton } from '../../components/TransactionTypeButton';
 
-import { Container, Header, Title, Form , Fields} from './styles';
+import { Container, Header, Title, Form , Fields, TransactionType} from './styles';
 
 
 export function Register() {
+  const [transactionType, setTransactionType] = useState('');
+
+  function handleTransactionTypeSelect(type:'income'|'outcome'){
+    setTransactionType(type)
+  }
+
   return (
     <Container>
       <Header>
@@ -24,6 +31,21 @@ export function Register() {
            <Input
       placeholder="preço"
       />
+      <TransactionType>
+      <TransactionTypeButton 
+      type="income" 
+      title="Income" 
+      isActive={transactionType === 'income'}
+      onPress={()=>handleTransactionTypeSelect('income')}
+      />
+      <TransactionTypeButton 
+      type="outcome" 
+      title="Outcome"
+      isActive={transactionType === 'outcome'}
+      onPress={()=>handleTransactionTypeSelect('outcome')}
+      />
+      </TransactionType>
+     
         </Fields>
       <Button value="Cadastrar"/>
       </Form>
