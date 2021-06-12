@@ -3,24 +3,37 @@ import { View } from 'react-native';
 
 import { Container, Title, Amount, Footer, Category, CategoryName, Icon, Date } from './styles';
 
+interface ICategory{
+  name:string;
+  icon:string
+}
+interface ITransactionCardProps{
+  data:{
+    title:string;
+  amount:string;
+  category:ICategory;
+  date:string;
+  }
+  
+}
 
-export function TransactionCard() {
+export function TransactionCard({data}:ITransactionCardProps) {
   return (<Container>
     <Title>
-      Desenvolvimento de site
+      {data.title}
     </Title>
     <Amount>
-    R$ 12.000,00
+    {data.amount}
     </Amount>
     <Footer>
       <Category>
-      <Icon name="dollar-sign"/> 
+      <Icon name={data.category.icon}/> 
        <CategoryName>
-         Vendas
+         {data.category.name}
        </CategoryName>
       </Category>
       <Date>
-        21/12/2068
+        {data.date}
       </Date>
     </Footer>
   </Container>);

@@ -2,10 +2,23 @@ import React from 'react';
 import { View } from 'react-native';
 import { HighligtCard } from '../../components/HighligtCard';
 import { TransactionCard } from '../../components/TransactionCard';
-import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title } from './styles';
+import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList} from './styles';
 
 
 export function Dashboard() {
+  const data = [{
+    title:"Blados",
+     amount:"R$ 6,000.00", 
+     date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
+  },{
+    title:"Coca-coca",
+     amount:"R$ 2,000.00", 
+     date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
+  },{
+    title:"Fruvis",
+     amount:"R$ 1,000.00", 
+     date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
+  }]
   return (
     <Container>
       <Header>
@@ -36,7 +49,14 @@ export function Dashboard() {
         <Title>
           Listagem
         </Title>
-        <TransactionCard/>
+        <TransactionList
+        data={data}
+        
+        keyExtractor={item => item.title}
+        renderItem={({item})=><TransactionCard data={item}/>}
+        
+        />
+        
       </Transactions>
     </Container>
   );

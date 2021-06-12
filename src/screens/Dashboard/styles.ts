@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import { getStatusBarHeight } from 'react-native-iphone-x-helper'
+import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
 import {Feather} from "@expo/vector-icons";
 
 export const Container = styled.View`
@@ -86,3 +86,10 @@ font-size: ${RFValue(18)}px;
 font-family:${({theme})=>theme.fonts.regular};
 margin-bottom: 16px;
 `;
+
+export const TransactionList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator:false,
+  contentContainerStyle:{
+    paddingBottom: getBottomSpace()
+  }
+})``;
