@@ -23,6 +23,13 @@ font-size: ${RFValue(18)}px;
 
 export const Form = styled.View`
 flex:1;
+justify-content: space-between;
 width: 100%;
 padding: ${RFValue(24)}px;
 `;
+
+export const Fields = styled.View`
+
+`;
+
+
