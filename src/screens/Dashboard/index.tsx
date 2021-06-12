@@ -7,17 +7,20 @@ import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, U
 
 export function Dashboard() {
   const data = [{
+    type:'income',
     title:"Blados",
      amount:"R$ 6,000.00", 
-     date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
+     date:"Ontem", category:{name:'compras', icon:'coffee'}
   },{
+    type:'income',
     title:"Coca-coca",
      amount:"R$ 2,000.00", 
      date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
   },{
+    type:'outcome',
     title:"Fruvis",
      amount:"R$ 1,000.00", 
-     date:"Ontem", category:{name:'compras', icon:'dollar-sign'}
+     date:"Ontem", category:{name:'Alimentação', icon:'dollar-sign'}
   }]
   return (
     <Container>
