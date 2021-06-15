@@ -66,9 +66,13 @@ export function Register() {
         placeholder="nome"
         name="name"
         control={control}
+
+        autoCapitalize="sentences"
+        autoCorrect={false}
       />
       <InputForm
         placeholder="preço"
+        keyboardType="numeric"
         name="amount"
         control={control}
       />
