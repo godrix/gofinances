@@ -12,8 +12,8 @@ interface ICategory{
 }
 
 interface IcategorySelectProps{
-  category:string;
-  setCategory:(name:string) => void;
+  category:ICategory;
+  setCategory:(category:ICategory) => void;
   closeSelectCategory:()=>void;
 }
 
@@ -23,6 +23,9 @@ export function CategorySelect({
   setCategory,
   closeSelectCategory
 }:IcategorySelectProps) {
+  function handleCategorySelect(item:ICategory){
+    setCategory(item)
+  }
   return (
     <Container>
       <Header>
@@ -35,7 +38,9 @@ export function CategorySelect({
       style={{flex:1, width:'100%'}}
       keyExtractor={item => item.key}
       renderItem={({item})=> (
-        <Category>
+        <Category 
+        isActive={category.key === item.key}
+        onPress={()=>handleCategorySelect(item)}>
           <Icon name={item.icon}/>
           <Name>{item.name}</Name>
         </Category>
@@ -45,7 +50,7 @@ export function CategorySelect({
       />
       
       <Footer>
-       <Button value="Selecionar"/>
+       <Button value="Selecionar" onPress={closeSelectCategory}/>
       </Footer>
     </Container>
   )

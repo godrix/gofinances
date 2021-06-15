@@ -1,15 +1,15 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacityProps } from 'react-native';
 
 import { Container, Category, Icon } from './styles';
 
-interface ISelectProps {
+interface ISelectProps extends TouchableOpacityProps {
   title:string
 }
 
-export function Select({title}:ISelectProps) {
+export function Select({title, ...rest}:ISelectProps) {
   return (
-    <Container>
+    <Container {...rest} activeOpacity={0.7}>
       <Category>
       {title}
       </Category>
