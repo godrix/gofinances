@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Modal } from 'react-native';
+import { Keyboard, Modal, TouchableWithoutFeedback } from 'react-native';
 import { Button } from '../../components/common/Button';
 import { useForm } from 'react-hook-form';
 import { InputForm } from '../../components/common/InputForm';
@@ -52,6 +52,7 @@ export function Register() {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <Container>
       <Header>
         <Title>
@@ -104,7 +105,7 @@ export function Register() {
           closeSelectCategory={handleCloseCategoryModal}
         />
       </Modal>
-      
     </Container>
+    </TouchableWithoutFeedback>
   );
 }
