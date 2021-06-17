@@ -6,13 +6,20 @@ import { InputForm } from '../../components/common/InputForm';
 import { Select } from '../../components/common/Select';
 import { TransactionTypeButton } from '../../components/TransactionTypeButton';
 import { CategorySelect } from '../CategorySelect';
-
+import * as Yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup'
 import { Container, Header, Title, Form , Fields, TransactionType} from './styles';
 
 interface FormaData {
   name:string;
   amount:string
 }
+
+const schema = Yup.object().shape({
+  name:Yup.string().required('Nome é obrigatorio'),
+  amount:Yup.number().typeError('Informe um valor numerico').positive('O valor não pode ser négativo')
+  .required('O campo preço é obrigatorio')
+})
 
 export function Register() {
   const [category, setCategory] = useState({
@@ -24,8 +31,11 @@ export function Register() {
 
   const {
     control,
-    handleSubmit
-  } = useForm();
+    handleSubmit,
+    formState:{errors}
+  } = useForm({
+    resolver:yupResolver(schema)
+  });
 
   function handleTransactionTypeSelect(type:'income'|'outcome'){
     setTransactionType(type)
@@ -76,13 +86,14 @@ export function Register() {
         placeholder="nome"
         name="name"
         control={control}
-
+        error={errors.name && errors.name.message}
         autoCapitalize="sentences"
         autoCorrect={false}
       />
       <InputForm
         placeholder="preço"
         keyboardType="numeric"
+        error={errors.amount && errors.amount.message}
         name="amount"
         control={control}
       />
