@@ -70,9 +70,12 @@ export function Register() {
     }
 
     try {
-      
+      const dataStorage = await AsyncStorage.getItem(dataKey);
+      const currentData = dataStorage ? JSON.parse(dataStorage) : []; 
 
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+      const dataFormated = JSON.stringify([data, ...currentData])
+
+      await AsyncStorage.setItem(dataKey, dataFormated);
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possivel cadastrar');
