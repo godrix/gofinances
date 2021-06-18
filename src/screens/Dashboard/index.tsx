@@ -2,7 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { HighligtCard } from '../../components/HighligtCard';
 import { TransactionCard, ITransactionCardData } from '../../components/TransactionCard';
-import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList} from './styles';
+import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList, LogoutButton} from './styles';
 
 export interface IDataListProps extends ITransactionCardData{
   id:string
@@ -44,7 +44,9 @@ export function Dashboard() {
             </UserName>
             </User>
           </UserInfo>
+          <LogoutButton onPress={()=>{}}>
           <Icon name="power" />
+          </LogoutButton>
         </UserWrapper>
 
       </Header>

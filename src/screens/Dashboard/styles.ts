@@ -4,6 +4,7 @@ import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper
 import {Feather} from "@expo/vector-icons";
 import {FlatList} from 'react-native'
 import {IDataListProps} from './index'
+import { BorderlessButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   flex:1;
@@ -36,6 +37,9 @@ export const UserInfo = styled.View`
 
 export const User = styled.View`
   margin-left: ${RFValue(18)}px;
+`;
+
+export const LogoutButton = styled(BorderlessButton)`
 `;
 
 
