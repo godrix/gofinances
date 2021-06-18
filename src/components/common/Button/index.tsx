@@ -5,12 +5,13 @@ import { RectButtonProps } from 'react-native-gesture-handler';
 import { Container, Label } from './styles';
 
 interface IButtonProps extends RectButtonProps{
-  value:string
+  value:string;
+  onPress:()=>void;
 }
 
-export function Button({value, ...rest}:IButtonProps) {
+export function Button({value, onPress, ...rest}:IButtonProps) {
   return (
-    <Container {...rest}>
+    <Container {...rest} onPress={onPress}>
       <Label>
 {value}
       </Label>
