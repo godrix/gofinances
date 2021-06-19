@@ -1,17 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
+import { categories } from '../../utils/categories';
 
 import { Container, Title, Amount, Footer, Category, CategoryName, Icon, Date } from './styles';
 
-interface ICategory{
-  name:string;
-  icon:string
-}
 export interface ITransactionCardData{
   transactionType:'income'|'outcome',
   name:string;
   amount:string;
-  category:ICategory;
+  category:string;
   date:string;
   
   dateFormated?:string;
@@ -23,6 +20,7 @@ interface ITransactionCardProps{
 }
 
 export function TransactionCard({data}:ITransactionCardProps) {
+  const [category] = categories.filter(item => item.key === data.category);
   return (<Container>
     <Title>
       {data.name}
@@ -32,9 +30,9 @@ export function TransactionCard({data}:ITransactionCardProps) {
     </Amount>
     <Footer>
       <Category>
-      <Icon name={data.category.icon}/> 
+      <Icon name={category.icon}/> 
        <CategoryName>
-         {data.category.name}
+         {category.name}
        </CategoryName>
       </Category>
       <Date>
