@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import {ThemeProvider} from 'styled-components/native'
 import theme from './src/global/styles/theme';
-import { Dashboard } from './src/screens/Dashboard';
 import {
   useFonts,
   Poppins_400Regular,

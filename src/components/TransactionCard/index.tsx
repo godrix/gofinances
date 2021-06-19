@@ -8,12 +8,14 @@ interface ICategory{
   icon:string
 }
 export interface ITransactionCardData{
-  type:'income'|'outcome',
-  title:string;
+  transactionType:'income'|'outcome',
+  name:string;
   amount:string;
   category:ICategory;
   date:string;
   
+  dateFormated?:string;
+  amountFormated?:string;
 }
 
 interface ITransactionCardProps{
@@ -23,10 +25,10 @@ interface ITransactionCardProps{
 export function TransactionCard({data}:ITransactionCardProps) {
   return (<Container>
     <Title>
-      {data.title}
+      {data.name}
     </Title>
-    <Amount type={data.type}>
-    {data.type === 'outcome' && '-'} {data.amount}
+    <Amount type={data.transactionType}>
+    {data.transactionType === 'outcome' && '-'} {data.amountFormated}
     </Amount>
     <Footer>
       <Category>
@@ -36,7 +38,7 @@ export function TransactionCard({data}:ITransactionCardProps) {
        </CategoryName>
       </Category>
       <Date>
-        {data.date}
+        {data.dateFormated}
       </Date>
     </Footer>
   </Container>);

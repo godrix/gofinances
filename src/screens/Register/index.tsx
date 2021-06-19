@@ -25,7 +25,7 @@ const schema = Yup.object().shape({
 
 export function Register() {
   const navigation =  useNavigation();
-  const dataKey = '@gofinance:transactions';
+  
   const [category, setCategory] = useState({
     key:'category',
     name:'Categoria'
@@ -55,6 +55,7 @@ export function Register() {
   }
 
   async function handleRegister({name, amount}:FormaData){
+    const dataKey = '@gofinance:transactions';
     if(!transactionType){
       Alert.alert('Selecione o tipo da transação');
       return
