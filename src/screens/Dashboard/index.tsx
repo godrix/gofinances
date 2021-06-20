@@ -5,6 +5,8 @@ import { HighligtCard } from '../../components/HighligtCard';
 import { TransactionCard, ITransactionCardData } from '../../components/TransactionCard';
 import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList, LogoutButton} from './styles';
 import { useFocusEffect } from '@react-navigation/native'
+import { formatCurrency } from '../../utils/formatCurrency';
+import { formatDate } from '../../utils/formatDate';
 
 export interface IDataListProps extends ITransactionCardData{
   id:string;
@@ -15,6 +17,14 @@ export interface IDataListProps extends ITransactionCardData{
 
 export function Dashboard() {
   const [data, setData] = useState<IDataListProps[]>([]);
+  const [highlightData, setHighlightData] = useState({
+    total:'',
+    entries:'',
+    expensive:'',
+    lastExpensive:'',
+    lastEntries:'',
+    lastTotal:''
+  });
 
   const fetchTransactions = async() => {
     const dataKey = '@gofinance:transactions';
@@ -22,39 +32,49 @@ export function Dashboard() {
     const transactions = dataStorage ? JSON.parse(dataStorage) : []; 
 
     const totalized = transactions.reduce((acc, cur:IDataListProps)=>{
+      const date = new Date(cur.date).getDate();
+      const lastTotal = new Date(acc.lastTotal).getDate();
+      const lastEntries = new Date(acc.lastEntries).getDate();
+      const lastExpensive = new Date(acc.lastExpensive).getDate();
+
       if(cur.transactionType === 'income'){
         return {
           ...acc,
           entries:cur.amount + acc.entries,
-          total:cur.amount + acc.total
+          total:cur.amount + acc.total,
+          lastTotal: date < lastTotal ? cur.date : acc.lastTotal,
+          lastEntries: date < lastEntries ? cur.date : acc.lastEntries,
         }
       }
       return {
         ...acc,
         expensive: acc.expensive - Number(cur.amount),
-        total:acc.total - Number(cur.amount)
+        total:acc.total - Number(cur.amount),
+        lastTotal: date < lastTotal ? cur.date : acc.lastTotal,
+        lastExpensive: date < lastExpensive ? cur.date : acc.lastExpensive,
       }
     }, {
       total:0,
+      lastTotal:0,
       entries:0,
-      expensive:0
+      lastEntries:0,
+      expensive:0,
+      lastExpensive:0,
     });
 
-    console.log(totalized)
-
-
+   setHighlightData({
+     entries:formatCurrency(totalized.entries),
+     expensive:formatCurrency(totalized.expensive),
+     total:formatCurrency(totalized.total),
+     lastExpensive:formatDate(totalized.lastExpensive),
+     lastEntries:formatDate(totalized.lastEntries),
+     lastTotal:formatDate(totalized.lastTotal),
+   });
 
     const transactionsFormated: IDataListProps[] = transactions.map((item:IDataListProps) =>{
-      const amount = Number(item.amount).toLocaleString('pt-BR', {
-        style:'currency',
-        currency:'BRL'
-      })
+      const amount = formatCurrency(item.amount);
 
-      const date = Intl.DateTimeFormat('pt-BR', {
-        day:'2-digit',
-        month:'2-digit',
-        year:'2-digit'
-      }).format(new Date(item.date));
+      const date = formatDate(item.date);
 
       return {
         ...item,
@@ -95,9 +115,9 @@ export function Dashboard() {
       </Header>
       <HighligtCards >
 
-        <HighligtCard title="Entradas" amount="R$ 17,00" lastTransaction="Ontem ao meio dia" type="up" />
-        <HighligtCard title="Saidas" amount="R$ 23,00" lastTransaction="Ontem ao meio dia" type="down" />
-        <HighligtCard title="Total" amount="R$ 50,00" lastTransaction="Ontem ao meio dia" type="total" />
+        <HighligtCard title="Entradas" amount={highlightData.entries} lastTransaction={highlightData.lastEntries} type="up" />
+        <HighligtCard title="Saidas" amount={highlightData.expensive} lastTransaction={highlightData.lastExpensive} type="down" />
+        <HighligtCard title="Total" amount={highlightData.total} lastTransaction={highlightData.lastTotal} type="total" />
 
       </HighligtCards>
       <Transactions>
