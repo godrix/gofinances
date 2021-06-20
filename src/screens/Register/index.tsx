@@ -12,6 +12,7 @@ import { Container, Header, Title, Form , Fields, TransactionType} from './style
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import {useNavigation} from '@react-navigation/native'
+import Snackbar from 'react-native-snackbar';
 interface FormaData {
   name:string;
   amount:string
@@ -86,7 +87,11 @@ export function Register() {
       setTransactionType('');
       setCategory({key:'category',name:'Categoria'});
       reset();
-      navigation.navigate('Listagem')
+      navigation.navigate('Listagem');
+      Snackbar.show({
+        text: 'Item adicionado',
+        duration: 3000,
+      });
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possivel cadastrar');
