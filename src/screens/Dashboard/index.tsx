@@ -21,6 +21,29 @@ export function Dashboard() {
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions = dataStorage ? JSON.parse(dataStorage) : []; 
 
+    const totalized = transactions.reduce((acc, cur:IDataListProps)=>{
+      if(cur.transactionType === 'income'){
+        return {
+          ...acc,
+          entries:cur.amount + acc.entries,
+          total:cur.amount + acc.total
+        }
+      }
+      return {
+        ...acc,
+        expensive: acc.expensive - Number(cur.amount),
+        total:acc.total - Number(cur.amount)
+      }
+    }, {
+      total:0,
+      entries:0,
+      expensive:0
+    });
+
+    console.log(totalized)
+
+
+
     const transactionsFormated: IDataListProps[] = transactions.map((item:IDataListProps) =>{
       const amount = Number(item.amount).toLocaleString('pt-BR', {
         style:'currency',
