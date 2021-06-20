@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { HighligtCard } from '../../components/HighligtCard';
 import { TransactionCard, ITransactionCardData } from '../../components/TransactionCard';
 import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, UserWrapper, Icon, HighligtCards, Transactions, Title, TransactionList, LogoutButton} from './styles';
+import { useFocusEffect } from '@react-navigation/native'
 
 export interface IDataListProps extends ITransactionCardData{
   id:string;
@@ -15,36 +16,39 @@ export interface IDataListProps extends ITransactionCardData{
 export function Dashboard() {
   const [data, setData] = useState<IDataListProps[]>([]);
 
-  useEffect(()=> {
-      (async ()=>{
-        const dataKey = '@gofinance:transactions';
-        const dataStorage = await AsyncStorage.getItem(dataKey);
-        const transactions = dataStorage ? JSON.parse(dataStorage) : []; 
+  const fetchTransactions = async() => {
+    const dataKey = '@gofinance:transactions';
+    const dataStorage = await AsyncStorage.getItem(dataKey);
+    const transactions = dataStorage ? JSON.parse(dataStorage) : []; 
 
-        const transactionsFormated: IDataListProps[] = transactions.map((item:IDataListProps) =>{
-          const amount = Number(item.amount).toLocaleString('pt-BR', {
-            style:'currency',
-            currency:'BRL'
-          })
+    const transactionsFormated: IDataListProps[] = transactions.map((item:IDataListProps) =>{
+      const amount = Number(item.amount).toLocaleString('pt-BR', {
+        style:'currency',
+        currency:'BRL'
+      })
 
-          const date = Intl.DateTimeFormat('pt-BR', {
-            day:'2-digit',
-            month:'2-digit',
-            year:'2-digit'
-          }).format(new Date(item.date));
+      const date = Intl.DateTimeFormat('pt-BR', {
+        day:'2-digit',
+        month:'2-digit',
+        year:'2-digit'
+      }).format(new Date(item.date));
 
-          return {
-            ...item,
-            dateFormated:date,
-            amountFormated:amount
-          }
+      return {
+        ...item,
+        dateFormated:date,
+        amountFormated:amount
+      }
 
-        });
+    });
 
-        setData(transactionsFormated);
-        
-      })()
-    },[]);
+    setData(transactionsFormated);
+  };
+
+  useFocusEffect(useCallback(()=>{
+    fetchTransactions();
+  },[]))
+
+
   return (
     <Container>
       <Header>
