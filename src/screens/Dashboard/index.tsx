@@ -67,9 +67,9 @@ export function Dashboard() {
      entries:formatCurrency(totalized.entries),
      expensive:formatCurrency(totalized.expensive),
      total:formatCurrency(totalized.total),
-     lastExpensive:formatDate(totalized.lastExpensive),
-     lastEntries:formatDate(totalized.lastEntries),
-     lastTotal:formatDate(totalized.lastTotal),
+     lastExpensive:`Ultima saida ${formatDate(totalized.lastExpensive)}`,
+     lastEntries:`Ultima entrada ${formatDate(totalized.lastEntries)}`,
+     lastTotal:`Ultima totalização ${formatDate(totalized.lastExpensive)}`,
    });
 
     const transactionsFormated: IDataListProps[] = transactions.map((item:IDataListProps) =>{
