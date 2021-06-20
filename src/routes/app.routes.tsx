@@ -6,6 +6,7 @@ import { Register } from '../screens/Register';
 import {useTheme} from 'styled-components';
 import { Platform } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { Resume } from '../screens/Resume';
 
 const {Navigator, Screen} = createBottomTabNavigator();
 
@@ -54,7 +55,7 @@ export function AppRoutes() {
       />
        <Screen
       name="Resumo"
-      component={Register}
+      component={Resume}
       options={{
         tabBarIcon:({size, color})=>(
           <MaterialIcons 
