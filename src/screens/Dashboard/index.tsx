@@ -17,6 +17,7 @@ export interface IDataListProps extends ITransactionCardData{
 
 export function Dashboard() {
   const [data, setData] = useState<IDataListProps[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [highlightData, setHighlightData] = useState({
     total:'',
     entries:'',
@@ -85,6 +86,7 @@ export function Dashboard() {
     });
 
     setData(transactionsFormated);
+    setIsLoading(false);
   };
 
   useFocusEffect(useCallback(()=>{
@@ -115,9 +117,14 @@ export function Dashboard() {
       </Header>
       <HighligtCards >
 
-        <HighligtCard title="Entradas" amount={highlightData.entries} lastTransaction={highlightData.lastEntries} type="up" />
-        <HighligtCard title="Saidas" amount={highlightData.expensive} lastTransaction={highlightData.lastExpensive} type="down" />
-        <HighligtCard title="Total" amount={highlightData.total} lastTransaction={highlightData.lastTotal} type="total" />
+        <HighligtCard 
+        title="Entradas" 
+        amount={highlightData.entries} 
+        lastTransaction={highlightData.lastEntries} 
+        loading={isLoading}
+        type="up" />
+        <HighligtCard loading={isLoading} title="Saidas" amount={highlightData.expensive} lastTransaction={highlightData.lastExpensive} type="down" />
+        <HighligtCard  loading={isLoading} title="Total" amount={highlightData.total} lastTransaction={highlightData.lastTotal} type="total" />
 
       </HighligtCards>
       <Transactions>
