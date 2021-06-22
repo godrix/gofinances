@@ -1,22 +1,25 @@
 import React from 'react';
 import { View } from 'react-native';
+import { categoriesName } from '../../utils/categories';
+import { formatCurrency } from '../../utils/formatCurrency';
 
 import { Container, Title, Amount } from './styles';
 
 interface IHistoryCardProps{
-  color:string;
-  title:string;
-  amount:string;
+  data:{
+    amount:number;
+    category:string;
+  }
 }
 
-export function HistoryCard({color, title, amount}:IHistoryCardProps) {
+export function HistoryCard({data}:IHistoryCardProps) {
   return (
-    <Container color={color}> 
+    <Container category={data.category}> 
       <Title>
-        {title}
+        {categoriesName[data.category]}
       </Title>
       <Amount>
-        {amount}
+        {formatCurrency(data.amount)}
       </Amount>
     </Container>
   );

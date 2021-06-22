@@ -53,8 +53,10 @@ export function Resume() {
           Resumo por categoria
         </Title>
       </Header>
-      <HistoryCard title="Compras" amount="R$ 120,00" color="#FF0000"/>
-      <HistoryCard title="Compras" amount="R$ 120,00" color="#FF0000"/>
+      {
+        data.map(item => <HistoryCard data={item} key={item.category}/>)
+      }
+      
     </Container>
   )
 }

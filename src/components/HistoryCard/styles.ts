@@ -1,8 +1,9 @@
 import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
+import { categoriesColor } from '../../utils/categories';
 
 interface IContainerProps{
-  color:string;
+  category:string;
 }
 
 export const Container = styled.View<IContainerProps>`
@@ -15,7 +16,7 @@ export const Container = styled.View<IContainerProps>`
   border-radius: 5px;
 
   border-left-width:5px;
-  border-left-color:${({color})=> color};
+  border-left-color:${({category})=> categoriesColor[category]};
 
   margin-bottom: ${RFValue(8)}px;
 `;
