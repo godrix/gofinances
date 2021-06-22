@@ -4,7 +4,7 @@ import React, { useCallback, useState } from 'react';
 import { View } from 'react-native';
 import { HistoryCard } from '../../components/HistoryCard';
 
-import { Container, Header, Title } from './styles';
+import { Container, Header, Title, Content } from './styles';
 
 import {IDataListProps} from '../Dashboard'
 import { categories } from '../../utils/categories';
@@ -53,9 +53,12 @@ export function Resume() {
           Resumo por categoria
         </Title>
       </Header>
+      <Content>
       {
         data.map(item => <HistoryCard data={item} key={item.category}/>)
       }
+      </Content>
+     
       
     </Container>
   )
