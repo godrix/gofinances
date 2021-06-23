@@ -19,7 +19,7 @@ export function Resume() {
     const transactions:IDataListProps[] = dataStorage ? JSON.parse(dataStorage) : []; 
 
 
-    const entriesTransactions = transactions.map(item => {
+    const expensivesTransactions = transactions.map(item => {
       if(item.transactionType === 'outcome'){
 
         return transactions.reduce((acc, elem)=>{
@@ -37,9 +37,10 @@ export function Resume() {
     
     })
 
-    const entriesFilter = [...new Set(entriesTransactions.map(obj => JSON.stringify(obj)))].map(s => JSON.parse(s))
+    const expensivesFilter = [...new Set(expensivesTransactions.map(obj => JSON.stringify(obj)))].map(s => JSON.parse(s));
 
-    setData(entriesFilter);
+
+    setData(expensivesFilter);
     setIsLoading(false);
   };
 
