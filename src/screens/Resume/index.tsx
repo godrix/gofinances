@@ -1,13 +1,15 @@
+import React, { useCallback, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
+import {VictoryPie} from 'victory-native';
 import { View } from 'react-native';
 import { HistoryCard } from '../../components/HistoryCard';
 
-import { Container, Header, Title, Content } from './styles';
+import { Container, Header, Title, Content, ChartContainer } from './styles';
 
 import {IDataListProps} from '../Dashboard'
-import { categories } from '../../utils/categories';
+import { categories, categoriesColor, categoriesName } from '../../utils/categories';
+import theme from '../../global/styles/theme';
 
 export function Resume() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +28,9 @@ export function Resume() {
           if(elem.category === item.category){
             return {
               category:elem.category,
-              amount:elem.amount +acc.amount
+              amount:elem.amount +acc.amount,
+              color:categoriesColor[elem.category],
+              name:categoriesName[elem.category]
             }
           }
 
@@ -55,6 +59,21 @@ export function Resume() {
         </Title>
       </Header>
       <Content>
+        <ChartContainer>
+        <VictoryPie
+        data={data}
+        colorScale={data.map(item => item.color)}
+        style={{
+          labels:{
+            fontWeight:'bold',
+            fill:theme.colors.shape
+          }
+        }}
+        labelRadius={50}
+        x="name"
+        y="amount"
+        />
+        </ChartContainer>
       {
         data.map(item => <HistoryCard data={item} key={item.category}/>)
       }
