@@ -58,7 +58,7 @@ export function Resume() {
           Resumo por categoria
         </Title>
       </Header>
-      <Content>
+      
         <ChartContainer>
         <VictoryPie
         data={data}
@@ -74,6 +74,7 @@ export function Resume() {
         y="amount"
         />
         </ChartContainer>
+        <Content>
       {
         data.map(item => <HistoryCard data={item} key={item.category}/>)
       }
