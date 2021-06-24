@@ -20,22 +20,30 @@ export function Resume() {
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions:IDataListProps[] = dataStorage ? JSON.parse(dataStorage) : []; 
 
+    const expensivesTotal = transactions.filter(item => item.transactionType === 'outcome')
+    .reduce((acc, item)=>{
+      return item.amount + acc
+    },0);
+
+    console.log('total', expensivesTotal)
 
     const expensivesTransactions = transactions.map(item => {
       if(item.transactionType === 'outcome'){
 
         return transactions.reduce((acc, elem)=>{
           if(elem.category === item.category){
+            const sum = elem.amount +acc.amount;
             return {
               category:elem.category,
-              amount:elem.amount +acc.amount,
+              amount: sum,
               color:categoriesColor[elem.category],
-              name:categoriesName[elem.category]
+              name:categoriesName[elem.category],
+              percentage: `${(sum / expensivesTotal * 100).toFixed()}%`
             }
           }
 
           return acc
-        },{category:'',amount:0})
+        },{category:'',amount:0, color:'', name:'', percentage:''})
         
       }
     
@@ -70,7 +78,7 @@ export function Resume() {
           }
         }}
         labelRadius={50}
-        x="name"
+        x="percentage"
         y="amount"
         />
         </ChartContainer>
