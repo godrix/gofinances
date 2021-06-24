@@ -13,6 +13,8 @@ import {
 import { isLoaded } from 'expo-font';
 import AppLoading from 'expo-app-loading'
 import { Register } from './src/screens/Register';
+import { StatusBar } from 'expo-status-bar';
+
 import {NavigationContainer} from '@react-navigation/native'
 import { Routes } from './src/routes';
 
@@ -28,6 +30,7 @@ export default function App() {
   }
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar style="light" backgroundColor={theme.colors.primary} />
       <NavigationContainer>
       <Routes/>
       </NavigationContainer>
