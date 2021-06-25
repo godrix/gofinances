@@ -4,7 +4,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import {VictoryPie} from 'victory-native';
 import { View } from 'react-native';
 import { HistoryCard } from '../../components/HistoryCard';
-
+import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
 import { Container, Header, Title, Content, ChartContainer } from './styles';
 
 import {IDataListProps} from '../Dashboard'
@@ -66,7 +66,13 @@ export function Resume() {
           Resumo por categoria
         </Title>
       </Header>
-      
+      <Content
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingHorizontal:16,
+        paddingBottom:useBottomTabBarHeight()
+      }}
+      >
         <ChartContainer>
         <VictoryPie
         data={data}
@@ -82,7 +88,7 @@ export function Resume() {
         y="amount"
         />
         </ChartContainer>
-        <Content>
+        
       {
         data.map(item => <HistoryCard data={item} key={item.category}/>)
       }

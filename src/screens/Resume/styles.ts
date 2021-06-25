@@ -22,12 +22,7 @@ font-family: ${({theme})=>theme.fonts.regular};
 font-size: ${RFValue(18)}px;
 `;
 
-export const Content = styled.ScrollView.attrs({
-  contentContainerStyle:{
-    flex:1,
-    padding:15,
-  }
-})`
+export const Content = styled.ScrollView`
 `;
 
 export const ChartContainer = styled.View`
