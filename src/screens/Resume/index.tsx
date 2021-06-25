@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import {VictoryPie} from 'victory-native';
@@ -10,25 +10,41 @@ import { Container, Header, Title, Content, ChartContainer, MonthSelect, MonthSe
 import {IDataListProps} from '../Dashboard'
 import { categories, categoriesColor, categoriesName } from '../../utils/categories';
 import theme from '../../global/styles/theme';
+import { addMonths, subMonths, format} from 'date-fns';
+import ptBR from 'date-fns/esm/locale/pt-BR/index.js';
 
 export function Resume() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<IDataListProps[]>([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  function handleChangeDate(action:'next'|'prev'){
+    if(action === 'next'){
+      setSelectedDate(addMonths(selectedDate, 1));
+    }else{
+      setSelectedDate(subMonths(selectedDate, 1));
+    }
+  }
 
   const fetchTransactions = async() => {
     const dataKey = '@gofinance:transactions';
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions:IDataListProps[] = dataStorage ? JSON.parse(dataStorage) : []; 
 
-    const expensivesTotal = transactions.filter(item => item.transactionType === 'outcome')
+    const expensivesTotal = transactions.filter(item => item.transactionType === 'outcome' &&
+    new Date(item.date).getMonth() === selectedDate.getMonth() &&
+    new Date(item.date).getFullYear() === selectedDate.getFullYear()
+    )
     .reduce((acc, item)=>{
       return item.amount + acc
     },0);
 
-    console.log('total', expensivesTotal)
 
-    const expensivesTransactions = transactions.map(item => {
-      if(item.transactionType === 'outcome'){
+    const expensivesTransactions = transactions.filter(item => new Date(item.date).getMonth() === selectedDate.getMonth() &&
+    new Date(item.date).getFullYear() === selectedDate.getFullYear()).map(item => {
+      if(item.transactionType === 'outcome' && 
+      new Date(item.date).getMonth() === selectedDate.getMonth() &&
+      new Date(item.date).getFullYear() === selectedDate.getFullYear()) {
 
         return transactions.reduce((acc, elem)=>{
           if(elem.category === item.category){
@@ -49,16 +65,17 @@ export function Resume() {
     
     })
 
+
     const expensivesFilter = [...new Set(expensivesTransactions.map(obj => JSON.stringify(obj)))].map(s => JSON.parse(s));
-
-
     setData(expensivesFilter);
     setIsLoading(false);
   };
 
   useFocusEffect(useCallback(()=>{
     fetchTransactions();
-  },[]))
+    },[selectedDate]));
+
+
   return (
     <Container>
       <Header>
@@ -74,13 +91,15 @@ export function Resume() {
       }} 
       >
         <MonthSelect>
-          <MonthSelectButton>
+          <MonthSelectButton onPress={()=> handleChangeDate('prev')}>
             <SelectIcon name="chevron-left"/>
           </MonthSelectButton>
           <Month>
-          Junho
+          {format(selectedDate, 'MMMM, YYY',{
+            locale:ptBR
+          })}
           </Month>
-          <MonthSelectButton>
+          <MonthSelectButton onPress={()=> handleChangeDate('next')}>
             <SelectIcon name="chevron-right"/>
           </MonthSelectButton>
         </MonthSelect>
