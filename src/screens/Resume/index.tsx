@@ -5,7 +5,7 @@ import {VictoryPie} from 'victory-native';
 import { View } from 'react-native';
 import { HistoryCard } from '../../components/HistoryCard';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
-import { Container, Header, Title, Content, ChartContainer } from './styles';
+import { Container, Header, Title, Content, ChartContainer, MonthSelect, MonthSelectButton, SelectIcon, Month } from './styles';
 
 import {IDataListProps} from '../Dashboard'
 import { categories, categoriesColor, categoriesName } from '../../utils/categories';
@@ -71,8 +71,19 @@ export function Resume() {
       contentContainerStyle={{
         paddingHorizontal:16,
         paddingBottom:useBottomTabBarHeight()
-      }}
+      }} 
       >
+        <MonthSelect>
+          <MonthSelectButton>
+            <SelectIcon name="chevron-left"/>
+          </MonthSelectButton>
+          <Month>
+          Junho
+          </Month>
+          <MonthSelectButton>
+            <SelectIcon name="chevron-right"/>
+          </MonthSelectButton>
+        </MonthSelect>
         <ChartContainer>
         <VictoryPie
         data={data}
