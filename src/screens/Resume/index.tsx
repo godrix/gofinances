@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import {VictoryPie} from 'victory-native';
+import {ActivityIndicator} from 'react-native';
 import { View } from 'react-native';
 import { HistoryCard } from '../../components/HistoryCard';
 import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
@@ -27,6 +28,7 @@ export function Resume() {
   }
 
   const fetchTransactions = async() => {
+    setIsLoading(true)
     const dataKey = '@gofinance:transactions';
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions:IDataListProps[] = dataStorage ? JSON.parse(dataStorage) : []; 
@@ -103,28 +105,28 @@ export function Resume() {
             <SelectIcon name="chevron-right"/>
           </MonthSelectButton>
         </MonthSelect>
-        <ChartContainer>
-        <VictoryPie
-        data={data}
-        colorScale={data.map(item => item.color)}
-        style={{
-          labels:{
-            fontWeight:'bold',
-            fill:theme.colors.shape
-          }
-        }}
-        labelRadius={50}
-        x="percentage"
-        y="amount"
-        />
-        </ChartContainer>
+        {
+          isLoading ? (<ActivityIndicator size="large" color={theme.colors.primary}/>) : (<ChartContainer>
+            <VictoryPie
+            data={data}
+            colorScale={data.map(item => item.color)}
+            style={{
+              labels:{
+                fontWeight:'bold',
+                fill:theme.colors.shape
+              }
+            }}
+            labelRadius={50}
+            x="percentage"
+            y="amount"
+            />
+            </ChartContainer>)
+        }
+        {
+          data.map(item => <HistoryCard data={item} key={item.category}/>)
+        }
         
-      {
-        data.map(item => <HistoryCard data={item} key={item.category}/>)
-      }
       </Content>
-     
-      
     </Container>
   )
 }
