@@ -1,8 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { Container, Header, TitleWrapper, Title, SubTitle, Footer } from './styles';
+import { Container, Header, TitleWrapper, Title, SubTitle, Footer, FooterWrapper } from './styles';
 import LogoSvg from '../../assets/svg/logo.svg';
+import LogoApple from '../../assets/svg/apple-icon.svg';
+import LogoGoogle from '../../assets/svg/google-icon.svg';
+import { SignInSocialButton } from '../../components/SignInSocialButton';
 
 export function SignIn() {
   return (
@@ -23,7 +26,12 @@ export function SignIn() {
           Faça login com uma conta abaixo
         </SubTitle>
       </Header>
-      <Footer/>
+      <Footer>
+        <FooterWrapper>
+          <SignInSocialButton svg={LogoGoogle} title="Entrar com Google"/>
+          <SignInSocialButton svg={LogoApple} title="Entrar com Apple"/>
+        </FooterWrapper>
+      </Footer>
     </Container>
   )
 }
