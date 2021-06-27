@@ -18,6 +18,7 @@ import { StatusBar } from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native'
 import { Routes } from './src/routes';
 import { SignIn } from './src/screens/SignIn';
+import { AuthProvider } from './src/contexts/auth';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -33,8 +34,10 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <StatusBar style="light" backgroundColor={theme.colors.primary} />
       <NavigationContainer>
-      {/* <Routes/> */}
-      <SignIn/>
+        <AuthProvider>
+        {/* <Routes/> */}
+        <SignIn/>
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
