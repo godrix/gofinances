@@ -35,8 +35,7 @@ export default function App() {
       <StatusBar style="light" backgroundColor={theme.colors.primary} />
       <NavigationContainer>
         <AuthProvider>
-        {/* <Routes/> */}
-        <SignIn/>
+        <Routes/>
         </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>

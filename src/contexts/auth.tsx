@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
 import * as Google  from 'expo-google-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -17,6 +17,7 @@ interface IUser{
 interface AuthContextData{
   user:IUser,
   signInWithGoogle():Promise<void>;
+  signed:boolean;
 }
 
 const AuthContext = createContext({} as AuthContextData);
@@ -49,8 +50,16 @@ function AuthProvider({children}:AuthProviderProps){
     }
   }
 
+  useEffect(()=>{
+     async function loadStorage(){
+
+     }
+
+     loadStorage();
+    },[]);
+
   return (
-    <AuthContext.Provider value={{user, signInWithGoogle}}>
+    <AuthContext.Provider value={{user, signInWithGoogle, signed:!!user}}>
     {children}
     </AuthContext.Provider>
   )
