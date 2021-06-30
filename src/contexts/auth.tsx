@@ -28,7 +28,7 @@ function AuthProvider({children}:AuthProviderProps){
   async function signInWithGoogle(){
     try {
       const response = await Google.logInAsync({
-        androidStandaloneAppClientId:'',
+        androidStandaloneAppClientId:'2',
         scopes:['profile', 'email']
       })
 
@@ -52,6 +52,14 @@ function AuthProvider({children}:AuthProviderProps){
 
   useEffect(()=>{
      async function loadStorage(){
+      const userStorage = await AsyncStorage.getItem('@gofinaces:user');
+
+      if(userStorage){
+        const userLogged = JSON.parse(userStorage) as IUser;
+
+        setUser(userLogged);
+      }
+
 
      }
 
