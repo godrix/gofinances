@@ -15,20 +15,23 @@ interface IUser{
 }
 
 interface AuthContextData{
-  user:IUser,
+  user:IUser | null,
   signInWithGoogle():Promise<void>;
   signed:boolean;
+  signOut():Promise<void>;
+  isLoading:boolean;
 }
 
 const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({children}:AuthProviderProps){
-  const [user, setUser] = useState<IUser>({} as IUser);
+  const [user, setUser] = useState<IUser |null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function signInWithGoogle(){
     try {
       const response = await Google.logInAsync({
-        androidStandaloneAppClientId:'2',
+        androidStandaloneAppClientId:'2googleusercontent.com',
         scopes:['profile', 'email']
       })
 
@@ -50,6 +53,11 @@ function AuthProvider({children}:AuthProviderProps){
     }
   }
 
+  async function signOut(){
+    setUser(null);
+    await AsyncStorage.removeItem('@gofinaces:user')
+  }
+
   useEffect(()=>{
      async function loadStorage(){
       const userStorage = await AsyncStorage.getItem('@gofinaces:user');
@@ -60,6 +68,8 @@ function AuthProvider({children}:AuthProviderProps){
         setUser(userLogged);
       }
 
+      setIsLoading(false);
+
 
      }
 
@@ -67,7 +77,7 @@ function AuthProvider({children}:AuthProviderProps){
     },[]);
 
   return (
-    <AuthContext.Provider value={{user, signInWithGoogle, signed:!!user}}>
+    <AuthContext.Provider value={{user, signInWithGoogle, signed:!!user, signOut, isLoading}}>
     {children}
     </AuthContext.Provider>
   )

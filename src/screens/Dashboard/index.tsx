@@ -7,6 +7,7 @@ import { Container, Header, User, UserInfo, UserGreeting, UserImage, UserName, U
 import { useFocusEffect } from '@react-navigation/native'
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDate } from '../../utils/formatDate';
+import { useAuth } from '../../contexts/auth';
 
 export interface IDataListProps extends ITransactionCardData{
   id:string;
@@ -26,6 +27,7 @@ export function Dashboard() {
     lastEntries:'',
     lastTotal:''
   });
+  const {signOut, user} = useAuth();
 
   const fetchTransactions = async() => {
     const dataKey = '@gofinance:transactions';
@@ -99,17 +101,17 @@ export function Dashboard() {
       <Header>
         <UserWrapper>
           <UserInfo>
-            <UserImage source={{ uri: 'https://github.com/godrix.png' }} />
+            <UserImage source={{ uri: user?.photo}} />
             <User>
               <UserGreeting>
                 Ola,
             </UserGreeting>
               <UserName>
-                Fulano
+                {user?.name}
             </UserName>
             </User>
           </UserInfo>
-          <LogoutButton onPress={()=>{}}>
+          <LogoutButton onPress={signOut}>
           <Icon name="power" />
           </LogoutButton>
         </UserWrapper>

@@ -9,16 +9,14 @@ import {
   Poppins_400Regular,
   Poppins_500Medium,
   Poppins_700Bold
-} from '@expo-google-fonts/poppins'
-import { isLoaded } from 'expo-font';
-import AppLoading from 'expo-app-loading'
-import { Register } from './src/screens/Register';
+} from '@expo-google-fonts/poppins';
+import AppLoading from 'expo-app-loading';
 import { StatusBar } from 'expo-status-bar';
 
 import {NavigationContainer} from '@react-navigation/native'
 import { Routes } from './src/routes';
 import { SignIn } from './src/screens/SignIn';
-import { AuthProvider } from './src/contexts/auth';
+import { AuthProvider, useAuth } from './src/contexts/auth';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,7 +25,9 @@ export default function App() {
     Poppins_700Bold
   });
 
-  if(!fontsLoaded){
+  const {isLoading} = useAuth()
+
+  if(!fontsLoaded || isLoading){
     return <AppLoading/>
   }
   return (
