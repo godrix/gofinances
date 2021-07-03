@@ -7,7 +7,7 @@
     "start": "react-native start"
   },
   "dependencies": {
-    "@expo-google-fonts/poppins": "^0.1.0",
+    "@expo-google-fonts/poppins": "^0.2.0",
     "@hookform/resolvers": "^2.5.2",
     "@react-native-async-storage/async-storage": "^1.13.0",
     "@react-native-community/masked-view": "0.1.10",
@@ -20,7 +20,7 @@
     "expo": "~42.0.0",
     "expo-app-loading": "^1.0.3",
     "expo-application": "^3.1.2",
-    "expo-font": "~9.1.0",
+    "expo-font": "~9.2.1",
     "expo-google-app-auth": "^8.1.7",
     "expo-linear-gradient": "~9.1.0",
     "expo-splash-screen": "~0.11.2",

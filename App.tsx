@@ -15,7 +15,6 @@ import { StatusBar } from 'expo-status-bar';
 
 import {NavigationContainer} from '@react-navigation/native'
 import { Routes } from './src/routes';
-import { SignIn } from './src/screens/SignIn';
 import { AuthProvider, useAuth } from './src/contexts/auth';
 
 export default function App() {
@@ -25,7 +24,7 @@ export default function App() {
     Poppins_700Bold
   });
 
-  const {isLoading} = useAuth()
+  const {isLoading} = useAuth();
 
   if(!fontsLoaded || isLoading){
     return <AppLoading/>

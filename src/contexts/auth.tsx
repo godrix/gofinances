@@ -18,6 +18,7 @@ interface IUser{
 interface AuthContextData{
   user:IUser | null,
   signInWithGoogle():Promise<void>;
+  signInWithApple():Promise<void>;
   signed:boolean;
   signOut():Promise<void>;
   isLoading:boolean;
@@ -55,6 +56,24 @@ function AuthProvider({children}:AuthProviderProps){
     }
   }
 
+  async function signInWithApple(){
+    try {
+   
+        const userLogged = {
+          id:String(Math.random()),
+          email:'email@email.com',
+          name:'Teste',
+          photo:'https://github.com/godrix.png',
+        }
+
+        setUser(userLogged);
+        await AsyncStorage.setItem('@gofinaces:user', JSON.stringify(userLogged));
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async function signOut(){
     setUser(null);
     await AsyncStorage.removeItem('@gofinaces:user')
@@ -79,7 +98,7 @@ function AuthProvider({children}:AuthProviderProps){
     },[]);
 
   return (
-    <AuthContext.Provider value={{user, signInWithGoogle, signed:!!user, signOut, isLoading}}>
+    <AuthContext.Provider value={{user, signInWithGoogle, signInWithApple, signed:!!user, signOut, isLoading}}>
     {children}
     </AuthContext.Provider>
   )
