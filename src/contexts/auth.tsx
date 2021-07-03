@@ -1,6 +1,7 @@
 import React, {createContext, useContext, useState, useEffect} from 'react';
 import * as Google  from 'expo-google-app-auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GOOGLE_AUTH_ID } from '../configs/auth';
 
 
 interface AuthProviderProps{
@@ -31,7 +32,7 @@ function AuthProvider({children}:AuthProviderProps){
   async function signInWithGoogle(){
     try {
       const response = await Google.logInAsync({
-        androidStandaloneAppClientId:'208874389138-tudr7ni7nrnd2h4rt428cv4nmnq1qnnp.apps.googleusercontent.com',
+        androidStandaloneAppClientId:GOOGLE_AUTH_ID,
         scopes:['profile', 'email']
       })
 
