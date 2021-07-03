@@ -55,7 +55,7 @@ export function Register() {
   }
 
   async function handleRegister({name, amount}:FormaData){
-    const dataKey = '@gofinance:transactions';
+    const dataKey = `@gofinances:transactions:${user?.email}`;
     if(!transactionType){
       Alert.alert('Selecione o tipo da transação');
       return

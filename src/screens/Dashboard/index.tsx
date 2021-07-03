@@ -30,7 +30,7 @@ export function Dashboard() {
   const {signOut, user} = useAuth();
 
   const fetchTransactions = async() => {
-    const dataKey = '@gofinance:transactions';
+    const dataKey = `@gofinances:transactions:${user?.email}`;
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions = dataStorage ? JSON.parse(dataStorage) : []; 
 

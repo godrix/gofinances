@@ -47,7 +47,7 @@ function AuthProvider({children}:AuthProviderProps){
         }
 
         setUser(userLogged);
-        await AsyncStorage.setItem('@gofinaces:user', JSON.stringify(userLogged));
+        await AsyncStorage.setItem(`@gofinances:user:${user?.email}`, JSON.stringify(userLogged));
 
         console.log(userLogged);
       }
@@ -67,7 +67,7 @@ function AuthProvider({children}:AuthProviderProps){
         }
 
         setUser(userLogged);
-        await AsyncStorage.setItem('@gofinaces:user', JSON.stringify(userLogged));
+        await AsyncStorage.setItem(`@gofinances:user:${user?.email}`, JSON.stringify(userLogged));
 
     } catch (error) {
       throw new Error(error);
@@ -76,12 +76,12 @@ function AuthProvider({children}:AuthProviderProps){
 
   async function signOut(){
     setUser(null);
-    await AsyncStorage.removeItem('@gofinaces:user')
+    await AsyncStorage.removeItem(`@gofinances:user:${user?.email}`)
   }
 
   useEffect(()=>{
      async function loadStorage(){
-      const userStorage = await AsyncStorage.getItem('@gofinaces:user');
+      const userStorage = await AsyncStorage.getItem(`@gofinances:user:${user?.email}`);
 
       if(userStorage){
         const userLogged = JSON.parse(userStorage) as IUser;

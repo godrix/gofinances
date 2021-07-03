@@ -29,7 +29,7 @@ export function Resume() {
 
   const fetchTransactions = async() => {
     setIsLoading(true)
-    const dataKey = '@gofinance:transactions';
+    const dataKey = `@gofinances:transactions:${user?.email}`;
     const dataStorage = await AsyncStorage.getItem(dataKey);
     const transactions:IDataListProps[] = dataStorage ? JSON.parse(dataStorage) : []; 
 
