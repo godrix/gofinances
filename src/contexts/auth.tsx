@@ -32,7 +32,8 @@ function AuthProvider({children}:AuthProviderProps){
   async function signInWithGoogle(){
     try {
       const response = await Google.logInAsync({
-        androidStandaloneAppClientId:GOOGLE_AUTH_ID,
+        androidStandaloneAppClientId: GOOGLE_AUTH_ID,
+        clientId: GOOGLE_AUTH_ID,
         scopes:['profile', 'email']
       })
 
