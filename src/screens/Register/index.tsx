@@ -11,8 +11,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { Container, Header, Title, Form , Fields, TransactionType} from './styles';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
-import {useNavigation} from '@react-navigation/native'
-import Snackbar from 'react-native-snackbar';
+import {useNavigation} from '@react-navigation/native';
 interface FormaData {
   name:string;
   amount:string
@@ -88,10 +87,6 @@ export function Register() {
       setCategory({key:'category',name:'Categoria'});
       reset();
       navigation.navigate('Listagem');
-      Snackbar.show({
-        text: 'Item adicionado',
-        duration: 3000,
-      });
     } catch (error) {
       console.log(error);
       Alert.alert('Não foi possivel cadastrar');
