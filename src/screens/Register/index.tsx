@@ -12,6 +12,7 @@ import { Container, Header, Title, Form , Fields, TransactionType} from './style
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import uuid from 'react-native-uuid';
 import {useNavigation} from '@react-navigation/native';
+import { useAuth } from '../../contexts/auth';
 interface FormaData {
   name:string;
   amount:string
@@ -25,6 +26,7 @@ const schema = Yup.object().shape({
 
 export function Register() {
   const navigation =  useNavigation();
+  const {user} = useAuth()
   
   const [category, setCategory] = useState({
     key:'category',
