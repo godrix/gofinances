@@ -3,4 +3,3 @@
 Aplicativo de controle financeiro
 
 * login social
-* Graficos
